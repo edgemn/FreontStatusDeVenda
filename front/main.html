@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Status da Compra</title>
+<style>
+  /* Estilos básicos para feedback do usuário */
+  .feedback {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+  }
+  .sucesso {
+    background-color: #4CAF50;
+  }
+  .erro {
+    background-color: #f44336;
+  }
+  /* Estilos para simular pedidos */
+  .pedido {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  /* Estilos para o botão "Continuar Comprando" */
+  #continuarComprando {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div id="statusCompra">Aguardando status...</div>
+
+<!-- Simulação de pedidos -->
+<div class="pedido" id="pedido1">Pedido 1: Aguardando</div>
+<div class="pedido" id="pedido2">Pedido 2: Aguardando</div>
+<div class="pedido" id="pedido3">Pedido 3: Aguardando</div>
+
+<!-- Botão "Continuar Comprando" -->
+<button id="continuarComprando">Continuar Comprando</button>
+
+<script>
+// Função para criar um elemento de feedback visual para o usuário
+function criarFeedbackUsuario(mensagem, tipo) {
+  const feedback = document.createElement('div');
+  feedback.className = `feedback ${tipo}`;
+  feedback.textContent = mensagem;
+  document.body.appendChild(feedback);
+  setTimeout(() => {
+    document.body.removeChild(feedback);
+  }, 5000);
+}
+
+// Função para simular a atualização do status dos pedidos
+function simularAtualizacaoPedidos() {
+  // Simula a obtenção de status de pedidos do backend
+  const statusPedidos = [
+    { id: 'pedido1', status: 'Processando' },
+    { id: 'pedido2', status: 'Enviado' },
+    { id: 'pedido3', status: 'Entregue' }
+  ];
+
+  // Atualiza a interface do usuário com os status simulados
+  statusPedidos.forEach(pedido => {
+    const pedidoElement = document.getElementById(pedido.id);
+    pedidoElement.textContent = `Pedido ${pedido.id.slice(-1)}: ${pedido.status}`;
+  });
+
+  criarFeedbackUsuario('Status dos pedidos atualizados!', 'sucesso');
+}
+
+// Inicializa a simulação quando a página é carregada
+document.addEventListener('DOMContentLoaded', () => {
+  // Simula a atualização de status a cada 5 segundos para demonstração
+  setInterval(simularAtualizacaoPedidos, 5000);
+});
+
+// Adiciona um evento de clique ao botão "Continuar Comprando"
+document.getElementById('continuarComprando').addEventListener('click', () => {
+  // Aqui você pode adicionar a lógica para continuar comprando
+  criarFeedbackUsuario('Continuando a comprar...', 'sucesso');
+});
+</script>
+
+</body>
+</html>
